@@ -12,12 +12,9 @@ local luaazureiothub  = require 'luaazureiothub'
 
 print('Library Info :' .. luaazureiothub.info())
 
-local connectionString
 
--- SG-04-testing1
--- UFROISyPnZ6YQOZqEc1C0O+vRMo5bleunEuruC+dqRI=
---connectionString = 'HostName=silverlineiothub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=sTodn29a96qYG/KeoKfn/B7MVKc9oHDkT9kZrZiNDLw='
-connectionString = 'HostName=silverlineiothub.azure-devices.net;DeviceId=SG-04-testing1;SharedAccessKey=UFROISyPnZ6YQOZqEc1C0O+vRMo5bleunEuruC+dqRI='
+local connectionString = require 'connection'
+print(connectionString)
 
 
 local maxSyncCounter = 0;
