@@ -1,0 +1,776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lua Azure Iot Hub Library Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lua Azure Iot Hub</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Callback_Functions">Callback Functions </a></li>
+<li><a href="#IotHub_Class">IotHub Class </a></li>
+<li><a href="#Static_values">Static values </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>luaazureiothub</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>luaazureiothub</code></h1>
+<p>
+<h2>Azure Iot Hub Device SDK for Lua</h2>
+
+<p>This library provides the lua interface to the Microsoft Azure IotHub SDK.</p>
+</p>
+<p> </p>
+
+
+<p>See the <a href="http://azure.github.io/azure-iot-sdks/c/api_reference/index.html">Microsoft Azure IoT Device SDK for C documentation</a> which this library uses to
+access the Azure Iot Hub.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#connect">connect (connectString[, protocol=AMQP[, processRead=nil[, processSent=nil]]])</a></td>
+	<td class="summary">Connect to the Azure IotHub, if successfull returns an IotHub object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#generateUUID">generateUUID ()</a></td>
+	<td class="summary">Return a random uuid.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#info">info ()</a></td>
+	<td class="summary">Return the current library version.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#iotHub">iotHub</a></td>
+	<td class="summary">IotHub object, returned by the <a href="index.html#connect">connect</a> function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#message">message</a></td>
+	<td class="summary">Message table used for sending or receiving via the Azure IotHub.</td>
+	</tr>
+</table>
+<h2><a href="#Callback_Functions">Callback Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#processRead">processRead (message)</a></td>
+	<td class="summary">Callback function to read messages sent from the IotHub.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#processSent">processSent (status, message)</a></td>
+	<td class="summary">Callback function to accept a sent message.</td>
+	</tr>
+</table>
+<h2><a href="#IotHub_Class">IotHub Class </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#iotHub:disconnect">iotHub:disconnect ()</a></td>
+	<td class="summary">Disconnect from the iothub</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iotHub:getSendStatus">iotHub:getSendStatus ()</a></td>
+	<td class="summary">Get the current send status of the send process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iotHub:lastMessageReceiveTime">iotHub:lastMessageReceiveTime ()</a></td>
+	<td class="summary">Get the last time a message was received from the Azure IotHub</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iotHub:loop">iotHub:loop ([timeoutSeconds=1])</a></td>
+	<td class="summary">Loop around the event queue to process sending and receiving of messages.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iotHub:sendMessage">iotHub:sendMessage (message[, timeoutSeconds=5])</a></td>
+	<td class="summary">Sends a message to the Azure IotHub</td>
+	</tr>
+</table>
+<h2><a href="#Static_values">Static values </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#clientResult">clientResult</a></td>
+	<td class="summary">Static values to define the returned error code from the call to <a href="index.html#iotHub:sendMessage">sendMessage</a> function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#contentType">contentType</a></td>
+	<td class="summary">Static values to define the message content type in the <a href="index.html#message">message</a> table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#messageReceive">messageReceive</a></td>
+	<td class="summary">Static values to pass back from the message recieve function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#messageSend">messageSend</a></td>
+	<td class="summary">Static values that are sent from the IotHub after a message has been sent</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sendStatus">sendStatus</a></td>
+	<td class="summary">Static values to define the send status returned by the <a href="index.html#iotHub:getSendStatus">getSendStatus</a> function.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "connect"></a>
+    <strong>connect (connectString[, protocol=AMQP[, processRead=nil[, processSent=nil]]])</strong>
+    </dt>
+    <dd>
+    Connect to the Azure IotHub, if successfull returns an IotHub object.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">connectString</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         String to connect to the Azure IotHub
+        </li>
+        <li><span class="parameter">protocol</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of the protocol (case insensitive), can be 'AMQP', 'MQTT' or 'HTTP'
+         (<em>default</em> AMQP)
+        </li>
+        <li><span class="parameter">processRead</span>
+            <span class="types"><span class="type">function</span></span>
+         Function to process read messages, see the callback function <a href="index.html#processRead">processRead</a>.
+         (<em>default</em> nil)
+        </li>
+        <li><span class="parameter">processSent</span>
+            <span class="types"><span class="type">function</span></span>
+         Function to process reply after sending a message, see the callback function <a href="index.html#processSent">processSent</a>.
+         (<em>default</em> nil)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="index.html#iotHub">iotHub</a></span>
+        object table if successfully connected to the IotHub.</li>
+        <li>
+           <span class="types"><span class="type">false,</span></span>
+        errorMessage False and an error message if failed to connect</li>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+<span class="keyword">local</span> luaazureiothub = <span class="global">require</span> <span class="string">'luaazureiothub'</span>
+
+<span class="keyword">local</span> processRead = <span class="keyword">function</span>(message)
+  <span class="global">print</span>(<span class="string">"received a message:"</span>)
+  <span class="global">print</span>(message)
+  <span class="keyword">return</span> luaazureiothub.messageReceive.ACCEPTED
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> processSendConfirmation = <span class="keyword">function</span>(status, message)
+  <span class="comment">-- called when the message has been sent or has an error
+</span>  <span class="keyword">if</span> status == luaazureiothub.messageSend.OK <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">'RX message ack'</span>)
+  <span class="keyword">else</span>
+    <span class="global">print</span>(<span class="string">'RX message error:'</span> .. status)
+  <span class="keyword">end</span>
+  <span class="global">print</span>(message)
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> connectionString = <span class="string">'HostName=hostname.azure-devices.net;DeviceId=deviceId;SharedAccessKey=????'</span>
+<span class="keyword">local</span> iothub, errorMessage = luaazureiothub.connect(connectionString, <span class="string">'amqp'</span>, processRead, processSendConfirmation)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "generateUUID"></a>
+    <strong>generateUUID ()</strong>
+    </dt>
+    <dd>
+    Return a random uuid.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        random uuid
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "info"></a>
+    <strong>info ()</strong>
+    </dt>
+    <dd>
+    Return the current library version.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Library version string
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "iotHub"></a>
+    <strong>iotHub</strong>
+    </dt>
+    <dd>
+    IotHub object, returned by the <a href="index.html#connect">connect</a> function
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">isConnect</span>
+            <span class="types"><span class="type">boolean</span></span>
+         If true then this connection has been made
+        </li>
+        <li><span class="parameter">disconnect</span>
+            <span class="types"><span class="type">function</span></span>
+         <a href="index.html#iotHub:disconnect">disconnect</a> Disconnects from the IotHub.
+        </li>
+        <li><span class="parameter">sendMessage</span>
+            <span class="types"><span class="type">function</span></span>
+         <a href="index.html#iotHub:sendMessage">sendMessage</a> Sends out a message.
+        </li>
+        <li><span class="parameter">getSendStatus</span>
+            <span class="types"><span class="type">function</span></span>
+         <a href="index.html#iotHub:getSendStatus">getSendStatus</a> Returns the current sending status.
+        </li>
+        <li><span class="parameter">lastMessageReceiveTime</span>
+            <span class="types"><span class="type">function</span></span>
+         <a href="index.html#iotHub:lastMessageReceiveTime">lastMessageReceiveTime</a> Returns the last time a message was received.
+        </li>
+        <li><span class="parameter">loop</span>
+            <span class="types"><span class="type">function</span></span>
+         <a href="index.html#iotHub:loop">loop</a> Loops around the message queue completing sending and receiving messages.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "message"></a>
+    <strong>message</strong>
+    </dt>
+    <dd>
+    Message table used for sending or receiving via the Azure IotHub. </p>
+
+<p>On sending a message, you need to only fill in the <strong>text</strong> field before passing this table to the <a href="index.html#iotHub:sendMessage">sendMessage</a> function.</p>
+
+<p>On receving a message the <strong>text</strong>, <strong>contentType</strong> and <strong>length</strong> will have values, other fields will be set if they are present in the message.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">text</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Mesasge text, this can be a text string or binary data with embedded zeros.
+        </li>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">number,nil</span></span>
+         If the length is provided then the text field will be encoded as binary data, with that length
+        </li>
+        <li><span class="parameter">contentType</span>
+            <span class="types"><span class="type">number,nil</span></span>
+
+<p> The message text can be overridden by using this field. It can be one of the following:</p>
+
+
+<pre><code>nil                   Use the length field too decide which encoding too use string or byte.
+contentType.BYTE      Always encode using byte encoding.
+contentType.STRING    Always encode using string encoding.
+</code></pre>
+
+
+        </li>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string,nil</a></span>
+         Message id, if set to nil, then the <a href="index.html#iotHub:sendMessage">sendMessage</a> function will automatically assign a random uuid
+        </li>
+        <li><span class="parameter">correlationId</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string,nil</a></span>
+         You can read/write the correlationId.
+        </li>
+        <li><span class="parameter">property</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table,nil</a></span>
+         Set of name="Value" pairs as property values to send with the message.
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+<span class="comment">-- basic text message
+</span><span class="keyword">local</span> message = {
+  text = <span class="string">'Basic text message'</span>
+}
+<span class="comment">-- sends out the message
+</span>iothub:sendMessage(message)
+<span class="comment">-- also sends out the same message above
+</span>iothub:sendMessage(<span class="string">'Basic text message'</span>)
+
+<span class="comment">-- basic data message with a fixed length of 12
+</span><span class="keyword">local</span> message = {
+  text = <span class="string">'Basic data message'</span>,
+  length = <span class="number">12</span>
+}
+
+<span class="comment">-- forced text message to always send out 12 character string
+</span><span class="keyword">local</span> message = {
+  text = <span class="string">'Basic data message'</span>,
+  length = <span class="number">12</span>,
+  contentType = luaazureiothub.contentType.STRING,
+}
+
+<span class="comment">-- string message with a property value of 'messageType', and a special message id
+</span><span class="keyword">local</span> message = {
+  text = <span class="string">'Basic text message'</span>,
+  property = {
+     messageType=<span class="string">'event'</span>,
+  },
+  id = <span class="string">'My test id'</span>,
+} </pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Callback_Functions"></a>Callback Functions </h2>
+
+These functions are called from the library to send back data and return status of sent messages from the Iot Hub.
+    <dl class="function">
+    <dt>
+    <a name = "processRead"></a>
+    <strong>processRead (message)</strong>
+    </dt>
+    <dd>
+    Callback function to read messages sent from the IotHub.
+You need to create a function with these parameters and pass the function as a parameter to the <a href="index.html#connect">connect</a> function.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="index.html#message">message</a></span>
+         The <a href="index.html#message">message</a> table sent from the IotHub.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">integer</span></span>
+        You can return values from the static table <a href="index.html#messageReceive">messageReceive</a>, to accept or reject the message.
+If you do not return a valid integer then the library will return messageReceive.ACCEPTED as default.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "processSent"></a>
+    <strong>processSent (status, message)</strong>
+    </dt>
+    <dd>
+    Callback function to accept a sent message.
+You need to create a function with these parameters and pass the function as a parameter to the <a href="index.html#connect">connect</a> function.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">status</span>
+            <span class="types"><span class="type">integer</span></span>
+         The status of the sent message, see the static table <a href="index.html#messageSend">messageSend</a> for the possible values.
+        </li>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="index.html#message">message</a></span>
+         A copy of the <a href="index.html#message">message</a> that has been sent. This message has been re-encoded from the C library
+so it will not have any extra fields added when used in the <a href="index.html#iotHub:sendMessage">sendMessage</a> function.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="IotHub_Class"></a>IotHub Class </h2>
+
+This class is returned by the <a href="index.html#connect">connect</a> function.
+    <dl class="function">
+    <dt>
+    <a name = "iotHub:disconnect"></a>
+    <strong>iotHub:disconnect ()</strong>
+    </dt>
+    <dd>
+    Disconnect from the iothub
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        True if succesfull in disconecting
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "iotHub:getSendStatus"></a>
+    <strong>iotHub:getSendStatus ()</strong>
+    </dt>
+    <dd>
+    Get the current send status of the send process
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">integer</span></span>
+        status of the current send process, see the <a href="index.html#sendStatus">sendStatus</a> table.</li>
+        <li>
+           <span class="types"><span class="type">boolean,string</span></span>
+
+<p> False and the error message if the status cannot be retreived.</p>
+
+<p>The returned status can be one of the following values:</p>
+
+<ul>
+    <li>sendStatus.IDLE</li>
+    <li>sendStatus.BUSY</li>
+</ul>
+</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "iotHub:lastMessageReceiveTime"></a>
+    <strong>iotHub:lastMessageReceiveTime ()</strong>
+    </dt>
+    <dd>
+    Get the last time a message was received from the Azure IotHub
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        time in seconds as to the last time a message was received</li>
+        <li>
+           <span class="types"><span class="type">boolean,</span></span>
+        string False and the error message if the time cannot be retreived</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "iotHub:loop"></a>
+    <strong>iotHub:loop ([timeoutSeconds=1])</strong>
+    </dt>
+    <dd>
+    Loop around the event queue to process sending and receiving of messages. </p>
+
+<p>You will need to call this if you whish to receive any messages and or if you have sent a message using <a href="index.html#iotHub:sendMessage">sendMessage</a>
+setting the timoutSeconds to 0.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">timeoutSeconds</span>
+            <span class="types"><span class="type">integer</span></span>
+         Number of seconds to loop around and process the message queues. If you set this
+value to &lt;=0 then the loop will process only one cycle and return.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+<span class="comment">-- send out 10 async messages
+</span><span class="keyword">for</span> counter = <span class="number">1</span>, <span class="number">10</span> <span class="keyword">do</span>
+  <span class="comment">-- send message but do not wait for reply
+</span>  iotHub:sendMessage(<span class="string">'Test message '</span> .. counter, <span class="number">0</span>)
+  <span class="comment">-- process the messages sent out and maybe also read some in
+</span>  iotHub:loop()
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "iotHub:sendMessage"></a>
+    <strong>iotHub:sendMessage (message[, timeoutSeconds=5])</strong>
+    </dt>
+    <dd>
+    Sends a message to the Azure IotHub
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table,string</a></span>
+         Mesasge to send, this field can be a string or a <a href="index.html#message">message</a>  table. If you use a string then
+message sent will be a simple message with string encoding.
+        </li>
+        <li><span class="parameter">timeoutSeconds</span>
+            <span class="types"><span class="type">number</span></span>
+         Number of seconds to wait for the Ack reply to be recieved from the IotHub</p>
+
+<p>if the timeoutSeconds == 0, then this function will return as soon as the message has been sent. It is up to the calling
+code to then call the <a href="index.html#iotHub:loop">loop</a> function to wait for the message ack to be sent back from the IotHub.
+         (<em>default</em> 5)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean,integer</span></span>
+        True if successfully sent the message, and the result code returned from the send confirmation.
+see the static <a href="index.html#messageSend">messageSend</a> table of possible values.</li>
+        <li>
+           <span class="types"><span class="type">boolean,string,integer</span></span>
+        False with the error message, and extra error code returned from the call to send message.
+See the static values in the table <a href="index.html#clientResult">clientResult</a> for the error codes returned.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Static_values"></a>Static values </h2>
+
+These tables contain static values that are returned or set by the Azure IotHub SDK.
+    <dl class="function">
+    <dt>
+    <a name = "clientResult"></a>
+    <strong>clientResult</strong>
+    </dt>
+    <dd>
+    Static values to define the returned error code from the call to <a href="index.html#iotHub:sendMessage">sendMessage</a> function.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">OK</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB<em>CLIENT</em>OK</strong> value
+        </li>
+        <li><span class="parameter">INVALID_ARG</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB<em>CLIENT</em>INVALID_ARG</strong> value
+        </li>
+        <li><span class="parameter">ERROR</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB<em>CLIENT</em>ERROR</strong> value
+        </li>
+        <li><span class="parameter">INVALID_SIZE</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB<em>CLIENT</em>INVALID_SIZE</strong> value
+        </li>
+        <li><span class="parameter">INDEFINITE_TIME</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB<em>CLIENT</em>INDEFINITE_TIME</strong> value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "contentType"></a>
+    <strong>contentType</strong>
+    </dt>
+    <dd>
+    Static values to define the message content type in the <a href="index.html#message">message</a> table.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">STRING</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUBMESSAGE_STRING</strong> value
+        </li>
+        <li><span class="parameter">BYTE</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUBMESSAGE_BYTEARRAY</strong> value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "messageReceive"></a>
+    <strong>messageReceive</strong>
+    </dt>
+    <dd>
+    Static values to pass back from the message recieve function
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ACCEPTED</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUBMESSAGE_ACCEPTED</strong> value
+        </li>
+        <li><span class="parameter">REJECTED</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUBMESSAGE_REJECTED</strong> value
+        </li>
+        <li><span class="parameter">ABANDONED</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUBMESSAGE_ABANDONED</strong> value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "messageSend"></a>
+    <strong>messageSend</strong>
+    </dt>
+    <dd>
+    Static values that are sent from the IotHub after a message has been sent
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">OK</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_CONFIRMATION_OK</strong> value
+        </li>
+        <li><span class="parameter">DESTROY</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_CONFIRMATION_BECAUSE_DESTROY</strong> value
+        </li>
+        <li><span class="parameter">TIMEOUT</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_CONFIRMATION_MESSAGE_TIMEOUT</strong> value
+        </li>
+        <li><span class="parameter">ERROR</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_CONFIRMATION_ERROR</strong> value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sendStatus"></a>
+    <strong>sendStatus</strong>
+    </dt>
+    <dd>
+    Static values to define the send status returned by the <a href="index.html#iotHub:getSendStatus">getSendStatus</a> function.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">IDLE</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_SEND_STATUS_IDLE</strong> value
+        </li>
+        <li><span class="parameter">BUSY</span>
+            <span class="types"><span class="type">integer</span></span>
+         returns the <strong>IOTHUB_CLIENT_SEND_STATUS_BUSY</strong> value
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
