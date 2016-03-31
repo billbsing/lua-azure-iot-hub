@@ -30,7 +30,7 @@ LD  := g++
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS  := -Wall  -fPIC
+CFLAGS  := -Wall -fPIC -std=gnu99
 AZURE_INCLUDES := -I$(AZURE_IOTHUB_INC_DIR)/iothub_client/inc -I$(AZURE_IOTHUB_INC_DIR)/azure-c-shared-utility/c/inc
 INCLUDES := -I$(INCLUDE_DIR) -I$(LUA_INC) -Isrc $(AZURE_INCLUDES)
 
