@@ -31,11 +31,11 @@ LD  := g++
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
 
-CFLAGS := -Wall -fPIC -std=gnu99
+CFLAGS := -Wall -fPIC
 AZURE_INCLUDES := -I$(AZURE_IOTHUB_INC_DIR)/iothub_client/inc -I$(AZURE_IOTHUB_INC_DIR)/azure-c-shared-utility/c/inc
 INCLUDES := -I$(INCLUDE_DIR) -I$(LUA_INC) -Isrc $(AZURE_INCLUDES)
 
-AZURE_LIBS := -L$(AZURE_IOTHUB_LIB_DIR)/iothub_client -L$(AZURE_IOTHUB_LIB_DIR)/azure-c-shared-utility/c -L$(AZURE_IOTHUB_LIB_DIR)/azure-uamqp-c -L$(AZURE_IOTHUB_LIB_DIR)/azure-umqtt-c
+AZURE_LIBS := -L$(AZURE_IOTHUB_LIB_DIR) -L$(AZURE_IOTHUB_LIB_DIR)/iothub_client -L$(AZURE_IOTHUB_LIB_DIR)/azure-c-shared-utility/c -L$(AZURE_IOTHUB_LIB_DIR)/azure-uamqp-c -L$(AZURE_IOTHUB_LIB_DIR)/azure-umqtt-c
 LFLAGS :=  -L$(LIB_DIR) -L$(LUA_LIB_DIR) $(AZURE_LIBS)
 
 CORE_LIBS := -luuid
