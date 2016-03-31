@@ -67,7 +67,7 @@ clean:
 
 
 install: $(TARGET)
-	$(INSTALL) -d $(LUA_LIBDIR)
+	$(INSTALL) -d $(LUA_LIB_DIR)
 	$(INSTALL) -m 0644 $(TARGET) $(LUA_LIB_DIR)/$(TARGET)
 	
 
