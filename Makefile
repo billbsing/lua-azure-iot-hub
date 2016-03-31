@@ -42,8 +42,9 @@ SSL_LIBS := -lssl -lcrypto
 CURL_LIBS := -lcurl
 AZURE_LIBS := -liothub_client -liothub_client_http_transport -liothub_client_amqp_transport -liothub_client_mqtt_transport -laziotsharedutil -luamqp -lumqtt
 
-# LIBS := -lglib-2.0
 LIBS :=  -shared $(CORE_LIBS) $(SSL_LIBS) $(CURL_LIBS) $(AZURE_LIBS)
+
+
 # the build target library:
 TARGET = luaazureiothub.so
 

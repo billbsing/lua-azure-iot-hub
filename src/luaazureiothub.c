@@ -226,6 +226,7 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, v
 	// check to see if we saved a random uuid for this message
 	printf("get message\n");
 	const char *messageId = IoTHubMessage_GetMessageId(sendCallbackInfo->messageHandle );
+	printf("message = %s\n", messageId);
 	if ( sendCallbackInfo->messageId && messageId ) {
 
 		if ( strcmp(sendCallbackInfo->messageId, messageId ) == 0 ) {
