@@ -228,7 +228,7 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, v
 	const char *messageId = IoTHubMessage_GetMessageId(sendCallbackInfo->messageHandle );
 	printf("message = %s\n", messageId);
 	if ( sendCallbackInfo->messageId && messageId ) {
-
+		printf("check message\n");
 		if ( strcmp(sendCallbackInfo->messageId, messageId ) == 0 ) {
 			printf("Match: %s\n", messageId);
 		}
@@ -237,17 +237,23 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, v
 		}
 	}
 	
+	printf("is send sync\n");
 	if ( sendCallbackInfo->isSendSync ) {
 		syncSendStatus.isDone = true;
 		syncSendStatus.result = result;
 	}
 	
+	printf("is delete messageId ?\n");
 	if ( sendCallbackInfo->messageId ) {
+		printf("delete messageId\n");
 		free(sendCallbackInfo->messageId);
 		sendCallbackInfo->messageId = NULL;
 	}
+	printf("destroy message\n");
     IoTHubMessage_Destroy(sendCallbackInfo->messageHandle);
+    printf("destroy callback\n");
 	free(sendCallbackInfo);
+	printf("end\n");
 }
 
 /***  
