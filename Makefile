@@ -13,8 +13,8 @@ LUA_INC ?= $(PREFIX)/include/lua5.2
 AZURE_IOTHUB_INC ?= ../azure-iot-sdks
 AZURE_IOTHUB_LIB ?= ../azure-iot-sdks/cmake
 
-LIBPATH ?= /usr/lib
-INCLUDEPATH ?= /usr/include
+LIB_DIR ?= /usr/lib
+INCLUDE_DIR ?= /usr/include
 
 
 INSTALL ?= install
@@ -31,10 +31,8 @@ LD  := g++
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  := -Wall  -fPIC
-#INCLUDES := -I$(INCLUDEPATH)/glib-2.0 -I$(LIBPATH)/glib-2.0/include -I$(INCLUDEPATH) -I$(LUA_INC)
-INCLUDES := -I$(INCLUDEPATH) -I$(LUA_INC) -Isrc -I$(AZURE_IOTHUB_INC)/c/iothub_client/inc -I$(AZURE_IOTHUB_INC)/c/azure-c-shared-utility/c/inc
+INCLUDES := -I$(INCLUDE_DIR) -I$(LUA_INC) -Isrc -I$(AZURE_IOTHUB_INC)/c/iothub_client/inc -I$(AZURE_IOTHUB_INC)/c/azure-c-shared-utility/c/inc
 
-# LFLAGS := -shared -L$(AZURE_IOTHUB_LIB)/iothub_client
 LFLAGS := -L$(LUA_LIBDIR) -L$(AZURE_IOTHUB_LIB)/iothub_client -L$(AZURE_IOTHUB_LIB)/azure-c-shared-utility/c -L/usr/lib -L$(AZURE_IOTHUB_LIB)/azure-uamqp-c -L$(AZURE_IOTHUB_LIB)/azure-umqtt-c
 
 CORE_LIBS := -luuid
