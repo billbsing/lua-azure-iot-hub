@@ -2,7 +2,7 @@
 PREFIX ?= /usr
 
 # System's libraries directory (where binary libraries are installed)
-LUA_LIBDIR ?= $(PREFIX)/lib/lua/5.2
+LUA_LIB_DIR ?= $(PREFIX)/lib/lua/5.2
 
 # System's lua directory (where Lua libraries are installed)
 LUA_DIR ?= $(PREFIX)/share/lua/5.2
@@ -10,8 +10,8 @@ LUA_DIR ?= $(PREFIX)/share/lua/5.2
 # Lua includes directory
 LUA_INC ?= $(PREFIX)/include/lua5.2
 
-AZURE_IOTHUB_INC ?= ../azure-iot-sdks
-AZURE_IOTHUB_LIB ?= ../azure-iot-sdks/cmake
+AZURE_IOTHUB_INC_DIR ?= ../azure-iot-sdks/c
+AZURE_IOTHUB_LIB_DIR ?= ../azure-iot-sdks/cmake
 
 LIB_DIR ?= /usr/lib
 INCLUDE_DIR ?= /usr/include
@@ -31,9 +31,11 @@ LD  := g++
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  := -Wall  -fPIC
-INCLUDES := -I$(INCLUDE_DIR) -I$(LUA_INC) -Isrc -I$(AZURE_IOTHUB_INC)/c/iothub_client/inc -I$(AZURE_IOTHUB_INC)/c/azure-c-shared-utility/c/inc
+AZURE_INCLUDES := -I$(AZURE_IOTHUB_INC_DIR)/iothub_client/inc -I$(AZURE_IOTHUB_INC)/azure-c-shared-utility/c/inc
+INCLUDES := -I$(INCLUDE_DIR) -I$(LUA_INC) -Isrc $(AZURE_INCLUDES)
 
-LFLAGS := -L$(LUA_LIBDIR) -L$(AZURE_IOTHUB_LIB)/iothub_client -L$(AZURE_IOTHUB_LIB)/azure-c-shared-utility/c -L/usr/lib -L$(AZURE_IOTHUB_LIB)/azure-uamqp-c -L$(AZURE_IOTHUB_LIB)/azure-umqtt-c
+AZURE_LIBS := -L$(AZURE_IOTHUB_LIB_DIR)/iothub_client -L$(AZURE_IOTHUB_LIB_DIR)/azure-c-shared-utility/c -L$(AZURE_IOTHUB_LIB_DIR)/azure-uamqp-c -L$(AZURE_IOTHUB_LIB_DIR)/azure-umqtt-c
+LFLAGS :=  -L$(LIB_DIR) -L$(LUA_LIB_DIR) $(AZURE_LIBS)
 
 CORE_LIBS := -luuid
 SSL_LIBS := -lssl -lcrypto
@@ -65,7 +67,7 @@ clean:
 
 install: $(TARGET)
 	$(INSTALL) -d $(LUA_LIBDIR)
-	$(INSTALL) -m 0644 $(TARGET) $(LUA_LIBDIR)/$(TARGET)
+	$(INSTALL) -m 0644 $(TARGET) $(LUA_LIB_DIR)/$(TARGET)
 	
 
 .PHONY:	all clean install
