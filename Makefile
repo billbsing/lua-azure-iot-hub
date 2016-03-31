@@ -10,8 +10,8 @@ LUA_DIR ?= $(PREFIX)/share/lua/5.2
 # Lua includes directory
 LUA_INC ?= $(PREFIX)/include/lua5.2
 
-AZURE_IOTHUB_INC = ../azure-iot-sdks
-AZURE_IOTHUB_LIB = ../azure-iot-sdks/cmake
+AZURE_IOTHUB_INC ?= ../azure-iot-sdks
+AZURE_IOTHUB_LIB ?= ../azure-iot-sdks/cmake
 
 LIBPATH ?= /usr/lib
 INCLUDEPATH ?= /usr/include
