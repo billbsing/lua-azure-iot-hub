@@ -8,7 +8,7 @@ See the [wiki](https://github.com/billbsing/lua-azure-iot-hub/wiki) for a simple
 For more information see the  [online manual](https://htmlpreview.github.io/?https://raw.githubusercontent.com/wiki/billbsing/lua-azure-iot-hub/manual.html)
 
 
-### Build
+## Build
 
 First you need to get the latest [Azure Iot Hub SDK](https://github.com/Azure/azure-iot-sdks) from git hub. 
 Go to the *azure-iot-sdks/c/build_all/linux* folder, then run the `build.sh` script.
@@ -35,7 +35,7 @@ See the enviroment variables in the `Makefile`:
 I have built the Azure iot sdk using yocto recipes.
 See
 
-[Azure Yocto Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-devtools/azure-iot-hub-lib/azure-iot-hub-lib_git.bb)
+[Azure Yocto Static Library Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-devtools/azure-iot-hub-lib/azure-iot-hub-lib_git.bb)
 
 [Lua Azure Iot Hub Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-luarocks/lua-azure-iot-hub/lua-azure-iot-hub_git.bb)
 
