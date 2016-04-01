@@ -36,5 +36,6 @@ I have built the Azure iot sdk using yocto recipes.
 See
 
 [Azure Yocto Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-devtools/azure-iot-hub-lib/azure-iot-hub-lib_git.bb)
+
 [Lua Azure Iot Hub Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-luarocks/lua-azure-iot-hub/lua-azure-iot-hub_git.bb)
 
