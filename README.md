@@ -1,4 +1,4 @@
-# lua-azure-iot-hub
+# Lua Azure Iot Hub
 
 This is my take on the Azure IotHub Client SDK for Lua.
 
