@@ -210,12 +210,19 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT ReceiveMessageCallback(IOTHUB_MESSAGE_HA
 
 static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, void* userContextCallback)
 {
+	IOTHUBMESSAGE_CONTENT_TYPE contentType;
 	SendCallbackInfo *sendCallbackInfo = ( SendCallbackInfo *) userContextCallback;
 	lua_State *L = callbackState;	
-	printf("Callback result %d\n", result);
-	if ( sendCallbackInfo  == NULL ) {
+	if ( sendCallbackInfo == NULL ) {
 		return;
 	}
+	// check for bug when sending error, the service can send multiple callbacks on one message
+    contentType = IoTHubMessage_GetContentType(sendCallbackInfo->messageHandle);
+	
+    if ( contentType != IOTHUBMESSAGE_BYTEARRAY && contentType != IOTHUBMESSAGE_STRING ) {
+		return;
+	}
+	
 	lua_getfield(L, LUA_REGISTRYINDEX, SEND_CONFIRMATION_FUNCTION_CALLBACK_NAME);
 	if ( lua_isfunction(L, -1) ) {
 		lua_pushnumber(L, result);
@@ -223,37 +230,20 @@ static void SendConfirmationCallback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, v
 		lua_call(L, 2, 0);
 	}
 	lua_pop(L, 1); 			// pop back table getfield sendConfirmFunction
-	// check to see if we saved a random uuid for this message
-	printf("get message\n");
-	const char *messageId = IoTHubMessage_GetMessageId(sendCallbackInfo->messageHandle );
-	printf("message = %s\n", messageId);
-	if ( sendCallbackInfo->messageId && messageId ) {
-		printf("check message\n");
-		if ( strcmp(sendCallbackInfo->messageId, messageId ) == 0 ) {
-			printf("Match: %s\n", messageId);
-		}
-		else {
-			printf("miss Match  %s != %s\n", messageId, sendCallbackInfo->messageId);
-		}
-	}
 	
-	printf("is send sync\n");
-	if ( sendCallbackInfo->isSendSync ) {
-		syncSendStatus.isDone = true;
-		syncSendStatus.result = result;
-	}
-	
-	printf("is delete messageId ?\n");
+	// check to see if we saved a random uuid for this message	
+	if ( result != IOTHUB_CLIENT_CONFIRMATION_ERROR) {		
+		if ( sendCallbackInfo->isSendSync ) {
+			syncSendStatus.isDone = true;
+			syncSendStatus.result = result;
+		}
+		IoTHubMessage_Destroy(sendCallbackInfo->messageHandle);
+	}	
 	if ( sendCallbackInfo->messageId ) {
-		printf("delete messageId\n");
 		free(sendCallbackInfo->messageId);
 		sendCallbackInfo->messageId = NULL;
 	}
-	printf("destroy message\n");
-    IoTHubMessage_Destroy(sendCallbackInfo->messageHandle);
-    printf("destroy callback\n");
 	free(sendCallbackInfo);
-	printf("end\n");
 }
 
 /***  
@@ -412,7 +402,7 @@ static int luaConnect(lua_State *L)
 	callbackState = L;
 //	lua_pushthread(callbackState);
 
-	lua_createtable(callbackState, 0, 2);
+//	lua_createtable(callbackState, 0, 2);
 	
 	if ( lua_isfunction(L, 3) ) {		
 		lua_pushstring(callbackState, RECEIVE_FUNCTION_CALLBACK_NAME);
@@ -668,7 +658,6 @@ static int luaSendMessage(lua_State *L)
 				char buffer[40];
 				uuid_unparse(uuid, buffer);
 				IoTHubMessage_SetMessageId(sendCallbackInfo->messageHandle, buffer);	
-				printf("Send TX: %s\n", buffer);
 			}
 			lua_pop(L, 1);			// remove id field
 
@@ -753,7 +742,6 @@ static int luaSendMessage(lua_State *L)
 		
 
 		unsigned long timeout = time(NULL) + timeoutSeconds;
-		unsigned long startTime = time(NULL);
 		while ( timeout > time(NULL)  ) {
 			IoTHubClient_LL_DoWork(info->iotHubClientHandle);
 			if ( IoTHubClient_LL_GetSendStatus(info->iotHubClientHandle, &sendStatus) ==  IOTHUB_CLIENT_OK ) {
@@ -764,7 +752,6 @@ static int luaSendMessage(lua_State *L)
 				}
 			}
 		}
-		printf("Send done in %ld seconds\n", time(NULL) - startTime );
 		int returnStackSize = 0;
 		if ( syncSendStatus.isDone ) {
 			if ( syncSendStatus.result == IOTHUB_CLIENT_CONFIRMATION_OK ) {
