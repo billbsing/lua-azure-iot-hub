@@ -7,6 +7,13 @@ See the [wiki](https://github.com/billbsing/lua-azure-iot-hub/wiki) for a simple
 
 For more information see the  [online manual](https://htmlpreview.github.io/?https://raw.githubusercontent.com/wiki/billbsing/lua-azure-iot-hub/manual.html)
 
+## Issues
+
++ Sometimes the Azure iot sdk sends back more than one message ack, even when I have already freed the message the first time. 
+I have tried to stop this occuring by first checking to see if their is a valid content type in the message, if not
+then the message has already been freed and so the lua function will no be called.
+
++ The amqp transport requires you to disconnect after a few hours as the session keys will expire.
 
 ## Build
 
