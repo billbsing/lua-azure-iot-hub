@@ -6,6 +6,7 @@ format = 'markdown'
 title = 'Lua Azure Iot Hub Library Reference'
 sort = true
 pretty = 'lxsh'
+output = 'manual'
 
 file = {
 	'../src/',
