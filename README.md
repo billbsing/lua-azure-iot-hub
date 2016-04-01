@@ -32,8 +32,7 @@ See the enviroment variables in the `Makefile`:
 
 ## Yocto Build
 
-I have built the Azure iot sdk using yocto recipes.
-See
+I have also built the Azure iot sdk library and the lua library as two seperate using yocto recipes.
 
 [Azure Yocto Static Library Recipe](https://github.com/billbsing/meta-silverline/blob/fido/meta-core/recipes-devtools/azure-iot-hub-lib/azure-iot-hub-lib_git.bb)
 
