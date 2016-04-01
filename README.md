@@ -11,10 +11,10 @@ For more information see the  [online manual](https://htmlpreview.github.io/?htt
 ### Build
 
 First you need to get the latest [Azure Iot Hub SDK](https://github.com/Azure/azure-iot-sdks) from git hub. 
-Go to the azure-iot-sdks/c/build_all/linux folder, then run the 'build.sh' script.
+Go to the *azure-iot-sdks/c/build_all/linux* folder, then run the `build.sh` script.
 
-For my build I edited the 'build.sh' file and changed the location of the build directory 'cmake' to go at the top 
-of the 'azure-iot-sdks' path, instead of my home folder.
+For my build I edited the `build.sh` file and changed the location of the build directory *cmake* to go at the top 
+of the *azure-iot-sdks* path, instead of my home folder.
 
 You need to build the library with the __-fPIC__ option so the build command is:
 
@@ -22,7 +22,7 @@ You need to build the library with the __-fPIC__ option so the build command is:
 
 Once the Azure iot sdk library is built you can then go to this folder and run `make`.
 
-For the build I assume that the 'azure-iot-sdks' folder is at the same level as this folder, if not you can set the 
+For the build I assume that the *azure-iot-sdks* folder is at the same level as this folder, if not you can set the 
 makefile environment variables to the location of the azure sdk source tree and azure sdk built libraries.
 
 See the enviroment variables in the `Makefile`:
