@@ -8,3 +8,16 @@ See the [wiki](https://github.com/billbsing/lua-azure-iot-hub/wiki) for a simple
 For more information see the  [online manual](https://htmlpreview.github.io/?https://raw.githubusercontent.com/wiki/billbsing/lua-azure-iot-hub/manual.html)
 
 
+### Build
+
+First you need to get the latest [Azure Iot Hub SDK](https://github.com/Azure/azure-iot-sdks) from git hub. 
+Go to the azure-iot-sdks/c/build_all/linux folder, then run the 'build.sh' script.
+
+For my build I edited the 'build.sh' file and changed the location of the build directory 'cmake' to go at the top 
+of the 'azure-iot-sdks' path, instead of my home folder.
+
+You need to build the library with the __-fPIC__ option so the build command is:
+
+	build.sh -cl -fPIC
+
+Once the Azure iot sdk library is built you can then go to this folder and run `make`.
