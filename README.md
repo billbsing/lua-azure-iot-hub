@@ -9,9 +9,9 @@ For more information see the  [online manual](https://htmlpreview.github.io/?htt
 
 ## Issues
 
-+ Sometimes the Azure iot sdk sends back more than one message ack, even when I have already freed the message the first time. 
-I have tried to stop this occuring by first checking to see if their is a valid content type in the message, if not
-then the message has already been freed and so the lua function will no be called.
++ Sometimes the Azure iot sdk sends back more than one message ack, even when the first the message and assoctiated memory has been released. 
+At the moment the only way to stop this occuring is to first check to see if there is a valid content type in the message. 
+If message content type is invalid then this is a duplicate ack call with an invalid message.
 
 + The amqp transport requires you to disconnect after a few hours as the session keys will expire.
 
