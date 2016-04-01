@@ -21,3 +21,13 @@ You need to build the library with the __-fPIC__ option so the build command is:
 	build.sh -cl -fPIC
 
 Once the Azure iot sdk library is built you can then go to this folder and run `make`.
+
+For the build I assume that the 'azure-iot-sdks' folder is at the same level as this folder, if not you can set the 
+makefile environment variables to the location of the azure sdk source tree and azure sdk built libraries.
+
+See the enviroment variables in the `Makefile`:
+
+	AZURE_IOTHUB_INC_DIR ?= ../azure-iot-sdks/c
+	AZURE_IOTHUB_LIB_DIR ?= ../azure-iot-sdks/cmake
+
+
