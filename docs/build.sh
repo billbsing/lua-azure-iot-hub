@@ -3,4 +3,4 @@
 # run doc build
 
 ldoc .
-cp ldoc.css out/
+cp ldoc.css ../wiki/
