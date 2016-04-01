@@ -14,4 +14,4 @@ file = {
 
 
 
-dir='out'
+dir='../wiki'
