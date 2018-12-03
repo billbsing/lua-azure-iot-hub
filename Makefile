@@ -2,13 +2,13 @@
 PREFIX ?= /usr
 
 # System's libraries directory (where binary libraries are installed)
-LUA_LIB_DIR ?= $(PREFIX)/lib/lua/5.2
+LUA_LIB_DIR ?= $(PREFIX)/lib/lua/5.3
 
 # System's lua directory (where Lua libraries are installed)
-LUA_DIR ?= $(PREFIX)/share/lua/5.2
+LUA_DIR ?= $(PREFIX)/share/lua/5.3
 
 # Lua includes directory
-LUA_INC ?= $(PREFIX)/include/lua5.2
+LUA_INC ?= $(PREFIX)/include/lua5.3
 
 AZURE_IOTHUB_INC_DIR ?= ../azure-iot-sdks/c
 AZURE_IOTHUB_LIB_DIR ?= ../azure-iot-sdks/cmake
@@ -56,9 +56,9 @@ OBJECTS = $(SOURCES:.c=.o)
 all:    $(TARGET)
 	@echo  $(TARGET) has been built
 
-$(TARGET): $(OBJECTS) 
+$(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJECTS) $(LFLAGS) $(LIBS)
-	
+
 .c.o: $(SOURCES)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
@@ -69,6 +69,6 @@ clean:
 install: $(TARGET)
 	$(INSTALL) -d $(LUA_LIB_DIR)
 	$(INSTALL) -m 0644 $(TARGET) $(LUA_LIB_DIR)/$(TARGET)
-	
+
 
 .PHONY:	all clean install
